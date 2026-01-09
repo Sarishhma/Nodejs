@@ -10,7 +10,8 @@ export default function Hello() {
         const fetchMessage = async()=>{
            try{
             const response = await axios.get(import.meta.env.VITE_HELLO);
-            setMessage(response.data.message);
+            console.log(response.data.message)
+            setMessage(response.data.message)
            }catch(err){
             setMessage(err.message)
             console.log(err);
