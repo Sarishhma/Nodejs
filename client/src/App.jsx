@@ -5,6 +5,8 @@ import Json from './components/Json';
 import Counter from './components/Counter';
 import Jokes from './components/Jokes';
 import Logger from './components/Logger';
+import Env from './components/Env';
+import Calculator from './components/Calculator';
 
 function App() {
  
@@ -16,6 +18,8 @@ function App() {
  <Counter/>
  <Jokes/>
  <Logger/>
+ <Env/>
+    <Calculator/>
     </>
   )
 }
