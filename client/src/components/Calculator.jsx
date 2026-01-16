@@ -1,38 +1,51 @@
-import axios from 'axios';
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from "react";
+import axios from "axios";
 
 export default function Calculator() {
-    const [num1,setnum1]=useState('');
-    const [num2,setnum2]=useState('')
-    const [result,setResult]=useState('')
-    const calculate = async (operation)=>{
-        const res = await axios.post(
-            'http://localhost:5007/calculator',{
-                num1: Number(num1),
-                num2:Number(num2),
-                operation
+  const [display, setDisplay] = useState("");
 
-            }
-        );
-        setResult(res.data.result);
+  const handleClick = (val) => {
+    setDisplay(prev => prev + val);
+  };
+
+  const handleClear = () => {
+    setDisplay("");
+  };
+
+  const handleDelete = () => {
+    setDisplay(prev => prev.slice(0, -1));
+  };
+
+  const handleResult = async () => {
+    if (!display) return;
+
+    try {
+      const response = await axios.post(import.meta.env.VITE_CALC,
+        { expression: display }
+      );
+      setDisplay(response.data.result.toString());
+    } catch {
+      setDisplay("Error");
     }
-
+  };
 
   return (
     <div>
-        <h1>Calculator</h1>
-        <input type="number" placeholder="enter number 1"value={num1} onChange={(e)=>setnum1(e.target.value)} />
+      <h1>Calculator</h1>
+      <input type="text" value={display} readOnly />
 
-                <input type="number" placeholder='enter number 2' value={num2} onChange={(e)=>setnum2(e.target.value)} />
+      <div>
+        {["7","8","9","/","4","5","6","*","1","2","3","-","0",".","+"].
+          map(val => (
+            <button key={val} onClick={() => handleClick(val)}>
+              {val}
+            </button>
+          ))}
+      </div>
 
-                <button onClick={()=>calculate('add')}>Add</button>
-                
-                <button onClick={()=>calculate('sub')}>sub</button>
-                
-                
-                   {result !== null && <h2>Result: {result}</h2>}
-
+      <button onClick={handleDelete}>Delete</button>
+      <button onClick={handleClear}>Clear</button>
+      <button onClick={handleResult}>=</button>
     </div>
-  )
+  );
 }
