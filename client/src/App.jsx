@@ -7,6 +7,7 @@ import Jokes from './components/Jokes';
 import Logger from './components/Logger';
 import Env from './components/Env';
 import Calculator from './components/Calculator';
+import Express from './components/Express';
 
 function App() {
  
@@ -20,6 +21,7 @@ function App() {
  <Logger/>
  <Env/>
     <Calculator/>
+     <Express/>
     </>
   )
 }
